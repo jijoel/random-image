@@ -21,7 +21,13 @@ class RandomImage
         if (! $images)
             throw new EmptyFolderException;
 
-        return $images;
+        $return = [];
+        foreach($images as $image) {
+            $return[] = $folder . DIRECTORY_SEPARATOR
+                . str_replace("'","\'",htmlentities($image));
+        }
+
+        return $return;
     }
 
     /**
@@ -31,7 +37,7 @@ class RandomImage
     {
         $array = self::files($folder);
 
-        return $folder . DIRECTORY_SEPARATOR . $array[array_rand($array)];
+        return $array[array_rand($array)];
     }
 
     /**
@@ -43,7 +49,7 @@ class RandomImage
     {
         $file = self::uri($folder);
 
-        return "background-image:url($file)";
+        return "background-image:url('$file')";
     }
 
 }

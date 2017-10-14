@@ -57,7 +57,20 @@ class RandomImageTest extends TestCase
 
         // make sure the test is a style de to the image:
         // eg, 'background-image:url("/images/files/<file>")
-        $this->assertRegExp('/background-image:url\(\/images\/files\/(green|blue).png\)/', $test);
+        $this->assertRegExp('/background-image:url\(\'\/images\/files\/(green|blue).png\'\)/', $test);
+    }
+
+    /**
+     * @test
+     * We also need to be able to handle single and double
+     * quotation marks in a file name
+     */
+    public function it_will_escape_quotation_marks()
+    {
+        $test = RandomImage::files('/images/quotes');
+
+        $this->assertContains("/images/quotes/It\'s Orange!.jpeg", $test);
+        $this->assertContains("/images/quotes/Some call it &quot;Purple&quot;.jpg", $test);
     }
 
 }
@@ -84,8 +97,8 @@ function scandir($folder)
         return ['.','..'];
 
     if (strpos($folder, '/images/files') !== false)
-        return ['.','..','.DS_Store','blue.png','green.png'];
+        return ['.','..','.DS_Store','foo.txt','blue.png','green.png'];
 
-    if (strpos($folder, '/images/many') !== false)
-        return ['foo.txt', '.gitignore', 'blue.gif','red.png'];
+    if (strpos($folder, '/images/quotes') !== false)
+        return ["It's Orange!.jpeg",'Some call it "Purple".jpg'];
 }
