@@ -13,6 +13,11 @@ class RandomImageServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $source = realpath(__DIR__.'/../css');
+
+        $this->publishes([
+            $source => resource_path('assets/vendor/jijoel'),
+        ], 'jijoel/random-image');
     }
 
     /**
