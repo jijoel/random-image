@@ -16,10 +16,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Jijoel\\RandomImage\\ServiceProvider"
+                "Jijoel\\RandomImage\\RandomImageServiceProvider"
             ],
             "aliases": {
-                "Debugbar": "Jijoel\\RandomImage\\Facade"
+                "RandomImage": "Jijoel\\RandomImage\\RandomImageFacade"
             }
         }
     }
